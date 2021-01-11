@@ -1,0 +1,240 @@
+﻿body {
+    background-color: #262A41;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+#hello, #welcome {
+    font-weight: 200;
+}
+
+.left .has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.left .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 3.775rem;
+    height: 3.775rem;
+    line-height: 3.775rem;
+    text-align: center;
+    pointer-events: none;
+    padding-left: 25px;
+}
+
+.left .has-search i, input.form-control.search {
+    color: white;
+}
+
+.left .has-search input::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+.left .has-search .search {
+    background-color: #3C3F54;
+    border-radius: 21px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 67px;
+    border: none;
+    width: 90%;
+}
+
+.filter-section i {
+    color: white;
+    padding: 30px 35px;
+    border-radius: 28px;
+}
+
+.filter-section .all i {
+    background-color: #F935A9;
+}
+
+.filter-section .male i {
+    background-color: #30BBB5;
+}
+
+.filter-section .female i {
+    background-color: #7946C1;
+}
+
+.left p {
+    color: #ffffff;
+    opacity: 0.7;
+}
+
+.filter-section {
+    display: flex;
+}
+
+    .filter-section > div {
+        margin: 10px;
+        padding: 20px;
+    }
+
+.all div, .male div, .female div {
+    width: 70px;
+}
+
+.filter-section div {
+    text-align: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    right: 16px;
+    height: 96%;
+    background: #F7F7FF;
+    width: 50%;
+    border-radius: 14px;
+    border: 1px solid #707070;
+}
+
+.left {
+    margin-left: 101px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+    .left h2 {
+        margin-bottom: 15px;
+    }
+
+#welcome {
+    margin-bottom: 38px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #30BBB5;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #30BBB5;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+.overlay .has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.overlay .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+}
+
+.overlay input.form-control.search, .overlay .has-search i {
+    color: #262a41;
+    opacity: 1;
+}
+
+.overlay .has-search input {
+    background-color: rgba(60,63,84,0.11);
+    border-radius: 21px;
+    border: 1px solid rgba(60,63,84,0.11);
+    width: 100%;
+}
+
+.overlay input.form-control.search::placeholder {
+    color: #262A41;
+    opacity: 0.52;
+}
+
+.overlay_head {
+    display: flex;
+    margin: 10px 0;
+}
+
+    .overlay_head > div:not(:first-child) {
+        padding-left: 20px;
+    }
+
+.overlay_head {
+    padding-right: 20px;
+}
+
+.overlay {
+    padding: 50px 25px 14px 80px;
+}
+
+img {
+    border: 1px solid black;
+}
+
+.user-card {
+    background: white;
+}
+
+.line {
+    display: flex;
+}
+
+    .line > p:not(:first-child) {
+        margin-left: 12px;
+    }
