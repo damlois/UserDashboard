@@ -8,7 +8,8 @@ namespace UserDashboard.Repository
 {
     public interface IDataRepository
     {
-        Task<List<User>> GetMultipleUsers(int amount);
+        Task<List<User>> GetMultipleUsers(int amount, string gender, int pageNumber);
         Task<User> GetSingleUser();
+        User FindUser(string email);
     }
 }
