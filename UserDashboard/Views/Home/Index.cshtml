@@ -1,7 +1,8 @@
 ﻿@model List<UserDashboard.Models.User>
+@using System.Text.Json; 
 @{
     ViewData["Title"] = "User Dashboard";
-    ViewData["user"] = ViewData["user"];
+    TempData["users"] = JsonSerializer.Serialize(Model);
 }
 
 @foreach (var user in Model)
@@ -16,8 +17,10 @@
             <div class="line">
                 <p class="email"><i class="fa fa-envelope-o" aria-hidden="true"></i> @user.Email</p>
                 <p class="phonee"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> @user.Phone</p>
-                <p class="arroww"><a href="~/home/user/@user.Email"><i class="fa fa-arrow-right arrow" aria-hidden="true"></i></a></p>
+                <p class="arroww"><a href="user/@user.Email"><i class="fa fa-arrow-right arrow" aria-hidden="true"></i></a></p>
             </div>
         </div>
+
     </div>
 }
+

@@ -63,20 +63,28 @@ namespace UserDashboard.Repository
 
         private async static Task<List<User>> FetchJson(string url)
         {
-            using (var httpClient = new HttpClient())
+            try
             {
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                if (response.IsSuccessStatusCode)
+                using (var httpClient = new HttpClient())
                 {
-                    var json = await response.Content.ReadAsStringAsync();
-                    var results = JObject.Parse(json)["results"].ToString();
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var data = JsonConvert.DeserializeObject<List<User>>(results);
-                    return data;
+                    HttpResponseMessage response = await httpClient.GetAsync(url);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        var results = JObject.Parse(json)["results"].ToString();
+
+                        var data = JsonConvert.DeserializeObject<List<User>>(results);
+                        return data;
+                    }
                 }
+            }
+
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
 
             return null;
