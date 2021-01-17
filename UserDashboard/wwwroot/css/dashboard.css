@@ -224,7 +224,7 @@ input:checked + .slider:before {
     background-color: rgba(60,63,84,0.11);
     border-radius: 21px;
     border: 1px solid rgba(60,63,84,0.11);
-    width: 90%;
+    width: 80%;
 }
 
 .overlay input.form-control.search::placeholder {
@@ -278,13 +278,13 @@ img {
         margin-left: 12px;
     }
 
-/* class applies to select element itself, not a wrapper element */
+
 .select-css {
     display: block;
     color: rgba(38, 42, 65, 1);
     padding: .6em 1.4em .5em .8em;
     width: 100%;
-    max-width: 19%;
+    max-width: 77%;
     box-sizing: border-box;
     margin: 0;
     border-radius: 2em;
@@ -309,25 +309,24 @@ img {
     /* Focus style */
     .select-css:focus {
         border-color: #aaa;
-        /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
         box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
         box-shadow: 0 0 0 3px -moz-mac-focusring;
         color: #222;
         outline: none;
     }
 
-    /* Set options to normal weight */
+ 
     .select-css option {
         font-weight: normal;
     }
 
-/* Support for rtl text, explicit support for Arabic and Hebrew */
+
 *[dir="rtl"] .select-css, :root:lang(ar) .select-css, :root:lang(iw) .select-css {
     background-position: left .7em top 50%, 0 0;
     padding: .6em .8em .5em 1.4em;
 }
 
-/* Disabled styles */
+
 .select-css:disabled, .select-css[aria-disabled=true] {
     color: graytext;
     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22graytext%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'), linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
@@ -431,14 +430,56 @@ img {
     vertical-align: middle;
     padding: 13px 17px;
     position: relative;
-    background: rgba(48, 187, 181, 1);
-    box-shadow: 2px 15px 30px rgba(48, 187, 181, 0.45);
+    background: rgb(38 42 65);
+    box-shadow: 2px 15px 30px rgb(83 48 187 / 45%);
     color: white;
 }
 }
+
 
 .footer.left-angle:before, .footer.right-angle:before {
     position: absolute;
     top: 4px;
     left: 12px;
+}
+
+div.download > a {
+    color: white;
+    text-decoration: none;
+}
+
+.disabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+    pointer-events: none;
+}
+
+.footer > div .fa-angle-left:before {
+    position: absolute;
+    top: 4px;
+    left: 12px;
+}
+
+.footer > div .fa-angle-right:before {
+    position: absolute;
+    top: 4px;
+    left: 12px;
+}
+
+@media only screen and (max-width: 540px){
+    .overlay {
+        position: absolute;
+        top: 100%;
+        bottom: 10px;
+        right: 0px;
+        height: 96%;
+        width: 77%;
+        left: 0;
+    }
+
+    .left{
+        left: 4%;
+    }
 }

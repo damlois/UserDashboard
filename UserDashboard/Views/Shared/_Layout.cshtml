@@ -15,13 +15,17 @@
     <div class="container">
         <main role="main" class="pb-3">
             <div class="left">
-                <h2 class="text-white"><span id="hello">Hello, @TempData.Peek("randomUser")</span> 
-                <strong>                  
-                </strong></h2>
+                <h2 class="text-white"><span id="hello">Hello, </span> 
+                    <strong>
+                        @(TempData.Peek("randomUser") is null ? "User" : TempData.Peek("randomUser"))
+                    </strong>
+                </h2>
                 <p id="welcome">Welcome to your dashboard, kindly sort through the user base</p>
                 <div class="form-group has-search">
                     <i class="fa fa-search form-control-feedback"></i>
-                    <input type="text" class="form-control search" placeholder="Find a user">
+                    <form action="~/find", method="get">
+                        <input type="text" name="user" class="form-control search" placeholder="Find a user">
+                    </form>
                 </div><br />
                 <p>Show Users</p>
 
@@ -51,27 +55,33 @@
                 <div class="overlay_head">
                     <div class="form-group has-search">
                         <i class="fa fa-search form-control-feedback"></i>
-                        <input type="text" class="form-control search" placeholder="Find in list">
+                        <form action="~/find" , method="get">
+                            <input type="text" name="user" class="form-control search" placeholder="Find in list">
+                        </form>
                     </div>
 
-                    <select name="country" class="select-css">
-                        <option value="AU">Australia</option>
-                        <option value="BR"> Brazil</option>
-                        <option value="CA">Canada</option>
-                        <option value="CH">Chile</option>
-                        <option value="DE">Germany</option>
-                        <option value="DK">Denmark</option>
-                        <option value="ES">Spain</option>
-                        <option value="FI">Finland</option>
-                        <option value="FR">France</option>
-                        <option value="GB">United Kingdom</option>
-                        <option value="IE">Ireland</option>
-                        <option value="IR">Iran</option>
-                        <option value="NL">Netherlands</option>
-                        <option value="NZ">New Zealand</option>
-                        <option value="TR">Turkey</option>
-                        <option value="US">United States</option>
-                    </select>
+                    <div>
+                        <form action="@Url.Action("FindUser", "Home")" , method="get">
+                            <select name="country" class="select-css" onchange="this.form.submit();">
+                                <option value="Australia">Australia</option>
+                                <option value="Brazil"> Brazil</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Finland">Finland</option>
+                                <option value="France">France</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Ireland">Ireland</option>
+                                <option value="Iran">Iran</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Turkey">Turkey</option>
+                                <option value="United States">United States</option>
+                            </select>
+                        </form>
+                    </div>
 
                     <div>
                         <label class="switch">
@@ -82,30 +92,40 @@
                     </div>
                 </div>
                     @RenderBody()
-            <div class="footer">
-                <div class="download"><i class="fa fa-cloud-download form-control-feedback"></i> Download Results</div>
                 <div>
-                    @if (Model is IEnumerable)
-                    {
-                        int next = Model[0].CurrentPage + 1;
-                        int previous = Model[0].CurrentPage - 1;
-                        var numberOfPages = (int)ViewData["totalUsers"] / 3;
-
-
-                        foreach (var item in Enumerable.Range(1, numberOfPages))
+                    @{
+                        if (Model is IEnumerable)
                         {
-                            <a href="~/?pageNumber=@previous">
-                                <i class="fa fa-angle-left form-control-feedback left-angle @(Model[0].CurrentPage == item ? "active" : "")"></i>
-                            </a>
+                            <div class="not-retrieved">
+                                @if (Model.Count == 0)
+                                {
+                                    <h4 style="margin-top:50px" >Users could not be retrieved. Please, check your network connection and reload the page.</h4>
+                                    <br />
+                                    <h5 style="text-align:center"><a href="~/">Retry</a></h5>
+                                }
+                            </div>
+                            <div class="footer">
+                                @if (Model.Count != 0)
+                                {
+
+                                    <div class="download"><a href="~/users/downloadcsv"><i class="fa fa-cloud-download form-control-feedback"></i> Download Results</a></div>
+
+                                    int next = Model[0].CurrentPage + 1;
+                                    int previous = Model[0].CurrentPage - 1;
+                                    var numberOfPages = (int)ViewData["totalUsers"] / 3;
+                                    if (numberOfPages % 2 != 0) numberOfPages += 1;
+
+                            <div>
+                                    <a class="@(previous < 1 ? "disabled" : "")" href="~/?gender=@ViewData["gender"]&pageNumber=@previous"><i class="fa fa-angle-left form-control-feedback left-angle"></i></a>
+                                
+
+                                <a class="@(next > numberOfPages ? "disabled" : "")"href="~/?gender=@ViewData["gender"]&pageNumber=@next"><i class="fa fa-angle-right form-control-feedback right-angle"></i></a>
+                            </div>
+                                        }
+                            </div>
                         }
-
-
-                        <a href="~/?pageNumber=@next">
-                            <i class="fa fa-angle-right form-control-feedback right-angle @(next > numberOfPages? "disabled" : "")"></i>
-                        </a>
                     }
                 </div>
-            </div>
             </div>
 
         </main>

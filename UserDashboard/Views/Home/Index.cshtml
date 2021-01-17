@@ -1,5 +1,6 @@
-﻿@model List<UserDashboard.Models.User>
-@using System.Text.Json; 
+﻿@using System.Collections;
+@model List<UserDashboard.Models.User>
+@using System.Text.Json;
 @{
     ViewData["Title"] = "User Dashboard";
     TempData["users"] = JsonSerializer.Serialize(Model);
@@ -12,8 +13,8 @@
             <img src="@user.Picture.Medium" alt="image" />
         </div>
         <div class="col-9">
-            <h5><b>@user.Name.First @user.Name.Last</b></h5>
-            <h6><i><b>@user.Location.Street.Number @user.Location.Street.Name @user.Location.City, @user.Location.Country</b></i></h6>
+            <h5><b>@user.FullName</b></h5>
+            <h6><i><b>@user.UserLocation</b></i></h6>
             <div class="line">
                 <p class="email"><i class="fa fa-envelope-o" aria-hidden="true"></i> @user.Email</p>
                 <p class="phonee"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> @user.Phone</p>
@@ -23,4 +24,6 @@
 
     </div>
 }
+
+
 

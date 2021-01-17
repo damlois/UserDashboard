@@ -9,6 +9,15 @@ namespace UserDashboard.Models
     {
         public UserId Id { get; set; }
         public UserName Name { get; set; }
+        public string FullName
+        {
+            get { return Name.First + " " + Name.Last; }
+        }
+
+        public string UserLocation
+        {
+            get { return $"{Location.Street.Number} {Location.Street.Name}, {Location.State}, {Location.Country}"; }
+        }
         public UserLocation Location { get; set; }
         public UserPicture Picture { get; set; }
         public string Gender { get; set; }

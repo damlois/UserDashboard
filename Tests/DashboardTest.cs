@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Tests
         {
             // Arrange
             var mockRepo = new Mock<IDataRepository>();
-            mockRepo.Setup(repo => repo.GetMultipleUsers(3, null, 1))
+            mockRepo.Setup(repo => repo.GetMultipleUsers(3, null))
                 .Returns(GetTestUsers());
             var controller = new HomeController(mockRepo.Object);
 
@@ -32,10 +33,10 @@ namespace Tests
             Assert.Equal(3, model.Count());
         }
 
-        private async  Task<List<User>> GetTestUsers()
+        private async Task<List<User>> GetTestUsers()
         {
             var mockRepo = new Mock<IDataRepository>();
-            return await mockRepo.Object.GetMultipleUsers(3, "female", 1);
+            return await mockRepo.Object.GetMultipleUsers(3, "female");
             //var randomUsers = new List<User>
             //{
             //    new User

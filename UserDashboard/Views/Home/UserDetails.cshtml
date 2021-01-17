@@ -13,11 +13,11 @@
         <img src="@Model.Picture.Large" alt="image"/>
     </div>
     <div class="col-8">
-        <h4><strong>@Model.Name.Title @Model.Name.First @Model.Name.Last</strong><span> @Model.Registered.Age</span></h4>
-        <p id="location">9278 , waterford</p>
-        <p id="email"><i class="fa fa-envelope-o" aria-hidden="true"></i> lois@gmail.com</p>
-        <p id="joined"><strong>JOINED: 2020-06-21</strong></p>
-        <p class="phone"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> 56516425</p>
-        <p class="phone"><i class="fa fa-mobile" aria-hidden="true"></i> 46756874575</p>
+        <h4><strong>@Model.Name.Title @Model.FullName</strong><span> @Model.Dob.Age</span></h4>
+        <p id="location">@Model.UserLocation</p>
+        <p id="email"><i class="fa fa-envelope-o" aria-hidden="true"></i> @Model.Email</p>
+        <p id="joined"><strong>JOINED: @((Model.Dob.DateTime).ToString("MM-dd-yyyy"))</strong></p>
+        <p class="phone"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> @Model.Phone</p>
+        <p class="phone"><i class="fa fa-mobile" aria-hidden="true"></i> @Model.Phone</p>
     </div>
 </div>

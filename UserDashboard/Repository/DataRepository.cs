@@ -20,25 +20,13 @@ namespace UserDashboard.Repository
             randomUserUrl = configuration["RandomUserUrl"];
         }
 
-        public async Task<List<User>> GetMultipleUsers(int amount, string gender, int pageNumber)
+        public async Task<List<User>> GetMultipleUsers(int amount, string gender)
         {
-            const int limit = 3;
-            var users = new List<User>();
             string url = $"{randomUserUrl}?results={amount}&gender={gender}";
 
             var data = await FetchJson(url);
 
-            if (data != null)
-            {
-                data = data.Skip((pageNumber - 1) * limit).Take(limit).ToList();
-                foreach (var item in data)
-                {
-                    item.CurrentPage = pageNumber;
-                    users.Add(item);
-                }
-            }
-
-            return users;
+            return data;
         }
 
         public async Task<User> GetSingleUser()
