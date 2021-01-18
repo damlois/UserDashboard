@@ -4,9 +4,13 @@
 @{
     ViewData["Title"] = "User Dashboard";
     TempData["users"] = JsonSerializer.Serialize(Model);
+    var pageNumber = (int)ViewData["pageNumber"];
+    ViewData["pageNumber"] = pageNumber;
+
+    var paginatedRandomUsers = Model.Skip((pageNumber - 1) * 3).Take(3).ToList();
 }
 
-@foreach (var user in Model)
+@foreach (var user in paginatedRandomUsers)
 {
     <div class="row user-card">
         <div class="col-3">

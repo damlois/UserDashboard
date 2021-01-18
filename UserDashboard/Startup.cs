@@ -24,6 +24,9 @@ namespace UserDashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
+
             services.AddControllersWithViews();
             services.AddScoped<IDataRepository, DataRepository>();
         }
@@ -45,6 +48,7 @@ namespace UserDashboard
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 

@@ -105,13 +105,13 @@
                                 }
                             </div>
                             <div class="footer">
-                                @if (Model.Count != 0)
+                                @if (Model.Count > 1)
                                 {
 
                                     <div class="download"><a href="~/users/downloadcsv"><i class="fa fa-cloud-download form-control-feedback"></i> Download Results</a></div>
 
-                                    int next = Model[0].CurrentPage + 1;
-                                    int previous = Model[0].CurrentPage - 1;
+                                    int next = (int)ViewData["pageNumber"] + 1;
+                                    int previous = (int)ViewData["pageNumber"] - 1;
                                     var numberOfPages = (int)ViewData["totalUsers"] / 3;
                                     if (numberOfPages % 2 != 0) numberOfPages += 1;
 

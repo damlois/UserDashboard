@@ -7,7 +7,6 @@ namespace UserDashboard.Models
 {
     public class User
     {
-        public UserId Id { get; set; }
         public UserName Name { get; set; }
         public string FullName
         {
@@ -25,7 +24,6 @@ namespace UserDashboard.Models
         public UserRegistered Registered { get; set; }
         public string Phone { get; set; }
         public UserDob Dob { get; set; } 
-        public int CurrentPage { get; set; }
     }
 
     public class UserName
@@ -68,9 +66,4 @@ namespace UserDashboard.Models
         public int Age { get; set; }
     }
 
-    public class UserId
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
-    }
 }

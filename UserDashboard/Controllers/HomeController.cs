@@ -34,12 +34,9 @@ namespace UserDashboard.Controllers
             var randomUsers = await _dataRepo.GetMultipleUsers(11, gender);
             if (randomUsers is null) { return View(Enumerable.Empty<User>().ToList()); }
 
-            int limit = 3; // number of users per page
-            randomUsers = randomUsers.Skip((pageNumber - 1) * limit).Take(limit).ToList();
-
-            foreach (var user in randomUsers) { user.CurrentPage = pageNumber; }
             var user_gender = string.IsNullOrEmpty(gender) ? "All" : gender;
             ViewData["totalUsers"] = 11;
+            ViewData["pageNumber"] = pageNumber;
 
             if (TempData.Peek("randomUser") == null && randomUsers.Any())
             {
@@ -88,7 +85,7 @@ namespace UserDashboard.Controllers
         [Route("/users/downloadcsv")]
         public async Task<FileContentResult> DownloadCSV()
         {
-            var users = await _dataRepo.GetMultipleUsers(4, null);
+            var users = JsonSerializer.Deserialize<List<User>>((string)TempData["users"]);
             var sb = new StringBuilder();
             sb.AppendLine("FullName, Email Address, Street, City, Country, Phone Number");
             foreach (var data in users)
