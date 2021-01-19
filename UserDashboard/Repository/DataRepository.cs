@@ -29,26 +29,6 @@ namespace UserDashboard.Repository
             return data;
         }
 
-        public async Task<User> GetSingleUser()
-        {
-            var user = new User();
-
-            string url = randomUserUrl;
-
-            var data = await FetchJson(url);
-
-            if (data != null)
-                user = data.FirstOrDefault();
-
-            return user;
-        }
-
-        public User FindUser(string email)
-        {
-            var randomUsers = new List<User> { new User { Email = "testtest00" } };
-            return randomUsers.FirstOrDefault(x => x.Email == email);
-        }
-
         private async static Task<List<User>> FetchJson(string url)
         {
             try
@@ -72,7 +52,7 @@ namespace UserDashboard.Repository
 
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+
             }
 
             return null;

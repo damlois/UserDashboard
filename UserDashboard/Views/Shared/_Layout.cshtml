@@ -14,36 +14,45 @@
 <body>
     <div class="container">
         <main role="main" class="pb-3">
-            <div class="left">
-                <h2 class="text-white"><span id="hello">Hello, </span> 
-                    <strong>
-                        @(TempData.Peek("randomUser") is null ? "User" : TempData.Peek("randomUser"))
-                    </strong>
-                </h2>
-                <p id="welcome">Welcome to your dashboard, kindly sort through the user base</p>
-                <div class="form-group has-search">
-                    <i class="fa fa-search form-control-feedback"></i>
-                    <form action="~/find", method="get">
-                        <input type="text" name="user" class="form-control search" placeholder="Find a user">
-                    </form>
-                </div><br />
-                <p>Show Users</p>
+            <div id="left-container">
+                <div class="left">
+                    <h2 class="text-white">
+                        <span id="hello">Hello, </span>
+                        <strong>
+                            @(TempData.Peek("randomUser") is null ? "User" : TempData.Peek("randomUser"))
+                        </strong>
+                    </h2>
+                    <p id="welcome">Welcome to your dashboard, kindly sort through the user base</p>
+                    <div class="form-group has-search">
+                        <i class="fa fa-search form-control-feedback"></i>
+                        <form action="~/find" , method="get">
+                            <input type="text" name="user" class="form-control search" placeholder="Find a user">
+                        </form>
+                    </div><br />
+                    <p>Show Users</p>
 
-                <div class="filter-section">
-                    <div class="all">
-                        <div><a href="~/?gender=all"><i class="fa fa-users fa-2x all-icon"></i></a></div>
-                        <br />
-                        <p>All Users</p>
-                    </div>
-                    <div class="male">
-                        <div><a href="~/?gender=male"><i class="fa fa-male fa-2x male-icon"></i></a></div>
-                        <br />
-                        <p>Male Users</p>
-                    </div>
-                    <div class="female">
-                        <div><a href="~/?gender=female"><i class="fa fa-female fa-2x female-icon"></i></a></div>
-                        <br />
-                        <p>Female Users</p>
+                    <div class="filter-section">
+                        @{
+                            var currentRoute = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}";
+                            var allLink = currentRoute.ToString().Contains("all", StringComparison.OrdinalIgnoreCase);
+                            var maleLink = currentRoute.ToString().Contains("male", StringComparison.OrdinalIgnoreCase);
+                            var femaleLink = currentRoute.ToString().Contains("female", StringComparison.OrdinalIgnoreCase);
+                        }
+                        <div class="all">
+                            <div><a href="~/?gender=all"><i class="fa fa-users fa-2x all-icon @(allLink? "active" : "")"></i></a></div>
+                            <br />
+                            <p>All Users</p>
+                        </div>
+                        <div class="male">
+                            <div><a href="~/?gender=male"><i class="fa fa-male fa-2x male-icon @(maleLink? "active" : "")"></i></a></div>
+                            <br />
+                            <p>Male Users</p>
+                        </div>
+                        <div class="female">
+                            <div><a href="~/?gender=female"><i class="fa fa-female fa-2x female-icon @(femaleLink? "active" : "")"></i></a></div>
+                            <br />
+                            <p>Female Users</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,8 +92,8 @@
                         </form>
                     </div>
 
-                    <div>
-                        <label class="switch">
+                    <div id="toggle">
+                        <label  class="switch">
                             <input type="checkbox" checked>
                             <span class="slider round"></span>
                         </label>
@@ -109,9 +118,10 @@
                                 {
 
                                     <div class="download"><a href="~/users/downloadcsv"><i class="fa fa-cloud-download form-control-feedback"></i> Download Results</a></div>
+                                    var page = ViewData["pageNumber"] ?? 1;
 
-                                    int next = (int)ViewData["pageNumber"] + 1;
-                                    int previous = (int)ViewData["pageNumber"] - 1;
+                                    int next = (int)page + 1;
+                                    int previous = (int)page - 1;
                                     var numberOfPages = (int)ViewData["totalUsers"] / 3;
                                     if (numberOfPages % 2 != 0) numberOfPages += 1;
 
@@ -136,3 +146,11 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        $("#toggle").click(function () {
+            $(".country").toggleClass("hide");
+        });
+    });
+</script>

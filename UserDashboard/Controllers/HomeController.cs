@@ -28,10 +28,19 @@ namespace UserDashboard.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string gender, int pageNumber)
         {
+            List<User> randomUsers = new List<User>();
             if (string.IsNullOrEmpty(gender) || gender == "all") gender = "";
             pageNumber = pageNumber == 0 ? 1 : pageNumber;
 
-            var randomUsers = await _dataRepo.GetMultipleUsers(11, gender);
+            if (pageNumber == 1)
+            {
+                randomUsers = await _dataRepo.GetMultipleUsers(11, gender);
+            }
+            else { 
+                if (TempData["users"] != null) 
+                    randomUsers = JsonSerializer.Deserialize<List<User>>((string)TempData["users"]); 
+            }
+
             if (randomUsers is null) { return View(Enumerable.Empty<User>().ToList()); }
 
             var user_gender = string.IsNullOrEmpty(gender) ? "All" : gender;
@@ -59,22 +68,21 @@ namespace UserDashboard.Controllers
         public IActionResult FindUser(string user, string country)
         {
             List<User> viewUsers = new List<User>(),
-                users = new List<User>(),
                 usersFound = new List<User>();
 
-            if (TempData["users"] != null) { users = JsonSerializer.Deserialize<List<User>>((string)TempData["users"]); }
+            if (TempData["users"] != null) { usersFound = JsonSerializer.Deserialize<List<User>>((string)TempData["users"]); }
             ViewData["totalUsers"] = 11;
 
-            if (string.IsNullOrEmpty(country))
+            if (!string.IsNullOrEmpty(user))
             {
-                usersFound = users.Where(
+                usersFound = usersFound.Where(
                 x => x.FullName.Contains(user, StringComparison.InvariantCultureIgnoreCase) || x.Email.Contains(user, StringComparison.InvariantCultureIgnoreCase)
                 ).ToList();
             }
 
-            else if (string.IsNullOrEmpty(user))
+            if (!string.IsNullOrEmpty(country))
             {
-                usersFound = users.Where(x => x.UserLocation.Contains(country, StringComparison.InvariantCultureIgnoreCase)).ToList();
+                usersFound = usersFound.Where(x => x.UserLocation.Contains(country, StringComparison.InvariantCultureIgnoreCase)).ToList();
             }    
 
             if (usersFound.Count != 0) viewUsers = usersFound;
@@ -83,7 +91,7 @@ namespace UserDashboard.Controllers
         }
 
         [Route("/users/downloadcsv")]
-        public async Task<FileContentResult> DownloadCSV()
+        public FileContentResult DownloadCSV()
         {
             var users = JsonSerializer.Deserialize<List<User>>((string)TempData["users"]);
             var sb = new StringBuilder();

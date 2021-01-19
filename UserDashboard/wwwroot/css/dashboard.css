@@ -12,6 +12,10 @@
     font-weight: 200;
 }
 
+#left-container{
+    width: 50%;
+}
+
 .left .has-search .form-control {
     padding-left: 2.375rem;
 }
@@ -70,6 +74,7 @@
 
 .filter-section {
     display: flex;
+    align-items: baseline;
 }
 
     .filter-section > div {
@@ -238,13 +243,13 @@ input:checked + .slider:before {
     align-items: baseline;
 }
 
+.overlay_head .form-group {
+    margin-right: -45px;
+}
+
     .overlay_head > div:not(:first-child) {
         padding-left: 20px;
     }
-
-.overlay_head > div {
-    padding-right: 10px;
-}
 
 .overlay {
     padding: 30px 30px 14px 45px;
@@ -347,9 +352,17 @@ img {
 .line p {
     font-size: smaller;
     color: rgba(38, 42, 65, 1);
-    opacity: 0.52;
     margin-bottom: 0;
 }
+
+    .line p:not(:last-child) {
+        opacity: 0.52;
+    }
+
+    .line .arrow:hover {
+        background: rgb(23, 207, 214);
+        border-radius: 6px;
+    }
 
 .col-9 > h6 {
     color: #262A41;
@@ -468,18 +481,45 @@ div.download > a {
     left: 12px;
 }
 
-@media only screen and (max-width: 540px){
-    .overlay {
-        position: absolute;
-        top: 100%;
-        bottom: 10px;
-        right: 0px;
-        height: 96%;
-        width: 77%;
-        left: 0;
-    }
-
-    .left{
-        left: 4%;
-    }
+.male-icon:hover, .female-icon:hover, .all-icon:hover {
+    width: 94px;
+    height: 94px;
+    border-radius: 20%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 31px;
 }
+
+.filter-section .active, .filter-section a:active {
+    width: 94px;
+    height: 94px;
+    border-radius: 20%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 31px;
+}
+
+.download:hover {
+    background: rgb(92, 59, 139);
+}
+
+.fa-angle-left:hover, .fa-angle-right:hover {
+    background: rgb(19, 33, 117);
+}
+
+
+    @media only screen and (max-width: 540px) {
+        .overlay {
+            position: absolute;
+            top: 100%;
+            bottom: 10px;
+            right: 0px;
+            height: 96%;
+            width: 77%;
+            left: 0;
+        }
+
+        .left {
+            left: 4%;
+        }
+    }

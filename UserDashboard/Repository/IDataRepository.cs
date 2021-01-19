@@ -9,7 +9,5 @@ namespace UserDashboard.Repository
     public interface IDataRepository
     {
         Task<List<User>> GetMultipleUsers(int amount, string gender);
-        Task<User> GetSingleUser();
-        User FindUser(string email);
     }
 }

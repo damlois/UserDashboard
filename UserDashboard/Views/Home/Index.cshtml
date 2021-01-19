@@ -4,10 +4,10 @@
 @{
     ViewData["Title"] = "User Dashboard";
     TempData["users"] = JsonSerializer.Serialize(Model);
-    var pageNumber = (int)ViewData["pageNumber"];
-    ViewData["pageNumber"] = pageNumber;
+    var pageNumber = ViewData["pageNumber"] ?? 1;
+    ViewData["pageNumber"] = (int)pageNumber;
 
-    var paginatedRandomUsers = Model.Skip((pageNumber - 1) * 3).Take(3).ToList();
+    var paginatedRandomUsers = Model.Skip(((int)pageNumber - 1) * 3).Take(3).ToList();
 }
 
 @foreach (var user in paginatedRandomUsers)
@@ -18,7 +18,7 @@
         </div>
         <div class="col-9">
             <h5><b>@user.FullName</b></h5>
-            <h6><i><b>@user.UserLocation</b></i></h6>
+            <h6><i><b>@user.Location.Street.Number @user.Location.City, @user.Location.State, <span class="country">@user.Location.Country</span></b></i></h6>
             <div class="line">
                 <p class="email"><i class="fa fa-envelope-o" aria-hidden="true"></i> @user.Email</p>
                 <p class="phonee"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> @user.Phone</p>
@@ -28,6 +28,12 @@
 
     </div>
 }
+
+<style>
+    .hide{
+        display: none;
+    }
+</style>
 
 
 
