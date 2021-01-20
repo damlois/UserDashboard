@@ -31,6 +31,7 @@ namespace UserDashboard.Repository
 
         private async static Task<List<User>> FetchJson(string url)
         {
+            List<User> data = new List<User>();
             try
             {
                 using (var httpClient = new HttpClient())
@@ -44,18 +45,18 @@ namespace UserDashboard.Repository
                         var json = await response.Content.ReadAsStringAsync();
                         var results = JObject.Parse(json)["results"].ToString();
 
-                        var data = JsonConvert.DeserializeObject<List<User>>(results);
-                        return data;
+                        data = JsonConvert.DeserializeObject<List<User>>(results);
                     }
                 }
             }
 
-            catch(Exception e)
+            catch(Exception)
             {
-
+                data = null;
             }
 
-            return null;
+            return data;
+
         }
 
     }
